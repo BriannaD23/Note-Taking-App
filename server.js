@@ -1,52 +1,54 @@
-const express = require('express')
-const app = express()
-app.use(express.json())
-app.use(express.urlencoded());
-const port = 3000
+const express = require('express');
+const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+const path = require('path');
 
-//Use .env file in config folder
-require("dotenv").config({ path: "./config/.env" })
 
-//Endpoints to server the HTML
+// Serve static files from the public directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Endpoints to serve the HTML
 app.get('/', (req, res) => {
-  res.sendFile("public/index.html", {root:__dirname})
-})
-
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 app.get('/login', (req, res) => {
-  res.sendFile('public/login.html', {root:__dirname})
-})
+  res.sendFile(path.join(__dirname, 'public', 'login.html'));
+});
 
 app.get('/signup', (req, res) => {
-  res.sendFile('public/signup.html', {root:__dirname})
-})
+  res.sendFile(path.join(__dirname, 'public', 'signup.html'));
+});
 
 // Endpoints for APIs
 app.post('/getnotes', (req, res) => {
-  const {userToken } = req.body
-  res.sendFile('public/signup.html', {root:__dirname})
-})
+  const { userToken } = req.body;
+  res.sendFile(path.join(__dirname, 'public', 'signup.html'));
+});
 
 app.post('/login', (req, res) => {
-  const {userToken} = req.body
-  res.sendFile('public/signup.html', {root:__dirname})
-})
+  const { userToken } = req.body;
+  res.sendFile(path.join(__dirname, 'public', 'signup.html'));
+});
 
 app.post('/signup', (req, res) => {
-  const {userToken} = req.body
-  res.sendFile('public/signup.html', {root:__dirname})
-})
+  const { userToken } = req.body;
+  res.sendFile(path.join(__dirname, 'public', 'signup.html'));
+});
 
 app.post('/addnote', (req, res) => {
-  const {userToken} = req.body
-  res.sendFile('public/signup.html', {root:__dirname})
-})
+  const { userToken } = req.body;
+  res.sendFile(path.join(__dirname, 'public', 'signup.html'));
+});
 
 app.post('/deletenote', (req, res) => {
-  const {userToken} = req.body
-  res.sendFile('public/signup.html', {root:__dirname})
-})
+  const { userToken } = req.body;
+  res.sendFile(path.join(__dirname, 'public', 'signup.html'));
+});
 
+// Start the server
+const port = process.env.port|| 3000;
 app.listen(port, () => {
-  console.log(`Listening on port http://localhost${3000}`)
-})
+  console.log(`Server is running on port ${port}`);
+});
